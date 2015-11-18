@@ -1,0 +1,23 @@
+{
+  "name": "dez-php/dez-html",
+  "description": "Html Maker Component",
+  "keywords": ["php html","html maker","dez-html maker"],
+  "authors": [
+    {
+      "name": "Ivan Gontarenko",
+      "email": "vania.gontarenko@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "type": "library",
+  "minimum-stability": "dev",
+  "prefer-stable" : true,
+  "require": {
+    "php": ">=5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dez\\Html\\": "src/Html"
+    }
+  }
+}
