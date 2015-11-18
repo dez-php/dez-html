@@ -8,7 +8,7 @@
 
         protected $single       = false;
 
-        protected $content      = null;
+        protected $contentStack = [];
 
         protected $name;
 
@@ -28,17 +28,50 @@
          */
         public function getContent()
         {
-            return (is_object($this->content) && $this->content instanceof HtmlElement)
-                ? $this->content->render() : $this->content;
+            return $this->contentStack;
         }
 
         /**
-         * @param null $content
-         * @return static
+         * @return string
+         */
+        public function renderContent()
+        {
+            $rendered = '';
+
+            foreach( $this->contentStack as $content ) {
+                $rendered .= $content;
+            }
+
+            return $rendered;
+        }
+
+        /**
+         * @param $content
+         * @return $this
          */
         public function setContent($content)
         {
-            $this->content = $content;
+            $this->contentStack = ! is_array($content) ? [$content] : $content;
+            return $this;
+        }
+
+        /**
+         * @param $content
+         * @return $this
+         */
+        public function appendContent($content)
+        {
+            array_push($this->contentStack, $content);
+            return $this;
+        }
+
+        /**
+         * @param $content
+         * @return $this
+         */
+        public function prependContent($content)
+        {
+            array_unshift($this->contentStack, $content);
             return $this;
         }
 
@@ -109,22 +142,27 @@
             return $this;
         }
 
+        /**
+         * @return string
+         */
+        public function renderAttributes()
+        {
+            return implode('', iterator_to_array(call_user_func(function(){
+                if(! empty($this->getAttributes())) foreach($this->getAttributes() as $name => $value){
+                    yield sprintf(' %s="%s"', preg_replace('/[^0-9a-z_-]+/ui', '', $name), htmlspecialchars($value));
+                }
+            })));
+        }
+
+        /**
+         * @return string
+         */
         public function render()
         {
-            $element    = "<{$this->getName()}";
+            $element   = sprintf("<{$this->getName()}%s>", $this->renderAttributes());
 
-            if(!empty($this->getAttributes())){
-                $attributes = [];
-                foreach($this->getAttributes() as $name => $value){
-                    $attributes[]   = sprintf('%s="%s"', $name, htmlspecialchars($value));
-                }
-                $element    .= ' ' . implode(' ', $attributes);
-            }
-
-            $element    .= '>';
-
-            if(($content = $this->getContent()) !== null){
-                $element .= $content;
+            if(count($this->getContent())> 0){
+                $element .= $this->renderContent();
             }
 
             if(!$this->isSingle()) {
@@ -132,6 +170,14 @@
             }
 
             return $element;
+        }
+
+        /**
+         * @return string
+         */
+        public function __toString()
+        {
+            return $this->render();
         }
 
     }
