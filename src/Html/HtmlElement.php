@@ -39,7 +39,7 @@
             $rendered = '';
 
             foreach( $this->contentStack as $content ) {
-                $rendered .= $content;
+                $rendered .= (string) $content;
             }
 
             return $rendered;
