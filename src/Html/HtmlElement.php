@@ -113,6 +113,14 @@
         {
             $element    = "<{$this->getName()}";
 
+            $attributes = implode(' ', iterator_to_array(
+                call_user_func(function(){
+                    foreach($this->getAttributes() as $name => $value) {
+                        yield sprintf('%s="%s"', preg_replace('/[^a-z_-]+/ui', '', $name), htmlspecialchars($value));
+                    }
+                })
+            ));
+
             if(!empty($this->getAttributes())){
                 $attributes = [];
                 foreach($this->getAttributes() as $name => $value){
