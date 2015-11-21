@@ -12,7 +12,7 @@
          * @param mixed $value
          * @param array $attributes
          */
-        public function __construct($name, $value, array $attributes = [])
+        public function __construct($name, $value = null, array $attributes = [])
         {
             parent::__construct('button', $attributes, null);
             $this->setAttribute('name', $name)->setContent($value);

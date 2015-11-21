@@ -4,17 +4,17 @@
 
     use Dez\Html\HtmlElement;
 
-    class LabelElement extends HtmlElement {
+    class ItalicElement extends HtmlElement {
 
         /**
-         * LabelElement constructor.
-         * @param $content
+         * ItalicElement constructor.
+         * @param null $content
          * @param array $attributes
          */
         public function __construct($content = null, array $attributes = [])
         {
-            parent::__construct('label', $attributes, null);
-            $this->setSingle(false)->setContent($content);
+            parent::__construct('i', $attributes, null);
+            $this->setContent($content);
         }
 
     }

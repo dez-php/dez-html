@@ -4,17 +4,17 @@
 
     use Dez\Html\HtmlElement;
 
-    class DivElement extends HtmlElement {
+    class OptgroupElement extends HtmlElement {
 
         /**
-         * DivElement constructor.
+         * OptgroupElement constructor.
          * @param null $content
          * @param array $attributes
          */
         public function __construct($content = null, array $attributes = [])
         {
-            parent::__construct('div', $attributes, null);
-            $this->setSingle(false)->setContent($content);
+            parent::__construct('optgroup', $attributes, null);
+            $this->setContent($content);
         }
 
     }

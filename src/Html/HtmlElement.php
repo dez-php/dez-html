@@ -24,6 +24,42 @@
         }
 
         /**
+         * @return boolean
+         */
+        public function isSingle()
+        {
+            return $this->single;
+        }
+
+        /**
+         * @param boolean $single
+         * @return static
+         */
+        public function setSingle($single)
+        {
+            $this->single = $single;
+            return $this;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getName()
+        {
+            return $this->name;
+        }
+
+        /**
+         * @param mixed $name
+         * @return static
+         */
+        public function setName($name)
+        {
+            $this->name = $name;
+            return $this;
+        }
+
+        /**
          * @return null
          */
         public function getContent()
@@ -76,6 +112,26 @@
         }
 
         /**
+         * @param $name
+         * @return bool
+         */
+        public function hasAttribute($name)
+        {
+            return isset($this->attributes[$name]);
+        }
+
+
+        /**
+         * @param $name
+         * @param null $default
+         * @return null
+         */
+        public function getAttribute($name, $default = null)
+        {
+            return $this->hasAttribute($name) ? $this->attributes[$name] : $default;
+        }
+
+        /**
          * @return mixed
          */
         public function getAttributes()
@@ -107,38 +163,67 @@
         }
 
         /**
-         * @return boolean
+         * @param $name
+         * @param null $value
+         * @return $this|null
          */
-        public function isSingle()
+        public function data($name, $value = null)
         {
-            return $this->single;
+            if($value == null) {
+                return $this->getAttribute("data-$name", null);
+            }
+
+            return $this->setAttribute("data-$name", $value);
         }
 
         /**
-         * @param boolean $single
-         * @return static
+         * @param null $className
+         * @return $this
          */
-        public function setSingle($single)
+        public function addClass($className = null)
         {
-            $this->single = $single;
+            if(($classes = $this->getAttribute('class', false)) !== false) {
+                $classes    = explode(' ', $classes);
+                array_push($classes, $className);
+                $this->setAttribute('class', implode(' ', $classes));
+            } else {
+                $this->setAttribute('class', $className);
+            }
+
             return $this;
         }
 
         /**
-         * @return mixed
+         * @param null $className
+         * @return bool
          */
-        public function getName()
+        public function hasClass($className = null)
         {
-            return $this->name;
+            return (strpos($this->getAttribute('class', ''), $className) !== false);
         }
 
         /**
-         * @param mixed $name
-         * @return static
+         * @param null $className
+         * @return $this
          */
-        public function setName($name)
+        public function removeClass($className = null)
         {
-            $this->name = $name;
+            if($this->hasClass($className)) {
+                $classes    = explode(' ', $this->getAttribute('class', ''));
+                unset($classes[array_search($className, $classes)]);
+                $this->setAttribute('class', implode(' ', $classes));
+            }
+
+            return $this;
+        }
+
+        /**
+         * @param null $id
+         * @return $this
+         */
+        public function id($id = null)
+        {
+            $this->setAttribute('id', $id);
             return $this;
         }
 
