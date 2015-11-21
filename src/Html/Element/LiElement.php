@@ -4,17 +4,17 @@
 
     use Dez\Html\HtmlElement;
 
-    class H1Element extends HtmlElement {
+    class LiElement extends HtmlElement {
 
         /**
-         * H1Element constructor.
+         * LiElement constructor.
          * @param null $content
          * @param array $attributes
          */
         public function __construct($content = null, array $attributes = [])
         {
-            parent::__construct('h1', $attributes, null);
-            $this->setContent($content);
+            parent::__construct('li', $attributes, null);
+            $this->setSingle(false)->setContent($content);
         }
 
     }

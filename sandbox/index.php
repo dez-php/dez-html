@@ -2,19 +2,25 @@
 
     namespace Sandbox;
 
+    use Dez\Html\Element\AElement;
     use Dez\Html\Element\BoldElement;
     use Dez\Html\Element\ButtonElement;
     use Dez\Html\Element\DivElement;
     use Dez\Html\Element\FormElement;
     use Dez\Html\Element\H1Element;
+    use Dez\Html\Element\InputButtonElement;
+    use Dez\Html\Element\InputCheckboxElement;
     use Dez\Html\Element\InputPasswordElement;
     use Dez\Html\Element\InputTextElement;
     use Dez\Html\Element\ItalicElement;
+    use Dez\Html\Element\LiElement;
     use Dez\Html\Element\OptgroupElement;
     use Dez\Html\Element\OptionElement;
+    use Dez\Html\Element\ScriptElement;
     use Dez\Html\Element\SelectElement;
-    use Dez\Html\Element\SubmitElement;
-    use Dez\Html\HtmlElement;
+    use Dez\Html\Element\InputSubmitElement;
+    use Dez\Html\Element\SpanElement;
+    use Dez\Html\Element\UlElement;
     use Dez\Html\Tag;
 
     include_once "../vendor/autoload.php";
@@ -40,7 +46,7 @@
 
     echo '<hr>';
 
-    $form   = new FormElement('/app/save_element.php', 'post', true, new SubmitElement('save!', null));
+    $form   = new FormElement('/app/save_element.php', 'post', true, new InputSubmitElement('save!', null));
 
     $form->addClass('form-component')->id(md5(time()))->prependContent( $div->removeClass('ok') )->prependContent( $text );
 
@@ -61,7 +67,7 @@
             '4e'    => 'ua-4e'
         ],
         'Japan' => 'jp',
-    ], 'ua-4e');
+    ], rand(0, 9));
 
     echo $select;
 
@@ -75,4 +81,43 @@
 
     $select->prependContent($optgroup);
 
-    echo $select;
+    echo $select, (new ScriptElement('js/jquery.js'))->async(true);
+
+    echo (new InputCheckboxElement('test', 'asd'));
+
+    echo (new InputButtonElement('click me!!1'));
+
+    $ul = new UlElement([
+        new LiElement('Test item'),
+        new LiElement('Test item 2'),
+        new AElement('?test=qwerty', new LiElement('With link')),
+        new BoldElement(new AElement('?test=qwerty', new LiElement('With link in bold')))
+    ]);
+
+    $ul->appendContent(new LiElement(
+        [
+            'inner cloned UL',
+            clone($ul)
+        ]
+    ));
+
+    $ul->appendContent(new LiElement([
+        'simple text',
+        new AElement('?go=нахуй', [
+            new BoldElement('ok'),
+            new ItalicElement(new SpanElement(' -> span'))
+        ]),
+        new ItalicElement(
+            new BoldElement('!')
+        )
+    ]));
+
+    for($i = 0; $i < 10; $i++) {
+        if($i % 3 == 0) {
+            $ul->appendContent(new AElement("?li=$i", new LiElement("item $i")));
+        } else {
+            $ul->appendContent(new LiElement("item $i"));
+        }
+    }
+
+    echo $ul;

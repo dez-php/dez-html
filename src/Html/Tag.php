@@ -46,6 +46,12 @@
             return $image;
         }
 
+        /**
+         * @param $name
+         * @param array $data
+         * @param null $selectedValue
+         * @param array $attributes
+         */
         public static function select($name, array $data = [], $selectedValue = null, array $attributes = [])
         {
             new SelectElement($name, $data, $selectedValue, $attributes);

@@ -24,6 +24,14 @@
         }
 
         /**
+         * HtmlElement clone.
+         */
+        public function __clone()
+        {
+
+        }
+
+        /**
          * @return boolean
          */
         public function isSingle()
@@ -156,9 +164,19 @@
          * @param $value
          * @return $this
          */
-        public function setAttribute($name, $value)
+        public function setAttribute($name, $value = null)
         {
             $this->attributes[$name]    = $value;
+            return $this;
+        }
+
+        /**
+         * @param $name
+         * @return $this
+         */
+        public function removeAttribute($name)
+        {
+            unset($this->attributes[$name]);
             return $this;
         }
 
@@ -234,7 +252,8 @@
         {
             return implode('', iterator_to_array(call_user_func(function(){
                 if(! empty($this->getAttributes())) foreach($this->getAttributes() as $name => $value){
-                    yield sprintf(' %s="%s"', preg_replace('/[^0-9a-z_-]+/ui', '', $name), htmlspecialchars($value));
+                    $attributeTemplate  = ($value === null ? ' %s' : ' %s="%s"');
+                    yield sprintf($attributeTemplate, preg_replace('/[^0-9a-z_-]+/ui', '', $name), htmlspecialchars($value));
                 }
             })));
         }
@@ -244,7 +263,7 @@
          */
         public function render()
         {
-            $element   = sprintf("<{$this->getName()}%s>", $this->renderAttributes());
+            $element    = sprintf("<{$this->getName()}%s>", $this->renderAttributes());
 
             if(count($this->getContent())> 0){
                 $element .= $this->renderContent();

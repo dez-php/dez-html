@@ -2,7 +2,7 @@
 
     namespace Dez\Html\Element;
 
-    class SubmitElement extends InputElement {
+    class InputSubmitElement extends InputElement {
 
         /**
          * SubmitElement constructor.
