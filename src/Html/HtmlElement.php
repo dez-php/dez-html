@@ -82,7 +82,7 @@
         {
             $rendered = '';
 
-            foreach( $this->contentStack as $content ) {
+            if(count($this->contentStack) > 0) foreach( $this->contentStack as $content ) {
                 $rendered .= (string) $content;
             }
 
@@ -261,19 +261,25 @@
         /**
          * @return string
          */
+        public function openTag()
+        {
+            return "<{$this->getName()}{$this->renderAttributes()}>";
+        }
+
+        /**
+         * @return string
+         */
+        public function closeTag()
+        {
+            return "</{$this->getName()}>";
+        }
+
+        /**
+         * @return string
+         */
         public function render()
         {
-            $element    = sprintf("<{$this->getName()}%s>", $this->renderAttributes());
-
-            if(count($this->getContent())> 0){
-                $element .= $this->renderContent();
-            }
-
-            if(!$this->isSingle()) {
-                $element .= "</{$this->getName()}>";
-            }
-
-            return $element;
+            return $this->openTag() . $this->renderContent() . ($this->isSingle() ? null : $this->closeTag());
         }
 
         /**
