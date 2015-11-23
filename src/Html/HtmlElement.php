@@ -63,7 +63,7 @@
          */
         public function setName($name)
         {
-            $this->name = $name;
+            $this->name = $this->sanitize($name);
             return $this;
         }
 
@@ -166,7 +166,7 @@
          */
         public function setAttribute($name, $value = null)
         {
-            $this->attributes[$name]    = $value;
+            $this->attributes[$this->sanitize($name)]    = $value;
             return $this;
         }
 
@@ -203,7 +203,7 @@
             if(($classes = $this->getAttribute('class', false)) !== false) {
                 $classes    = explode(' ', $classes);
                 array_push($classes, $className);
-                $this->setAttribute('class', implode(' ', $classes));
+                $this->setAttribute('class', implode(' ', array_map([$this, 'sanitize'], $classes)));
             } else {
                 $this->setAttribute('class', $className);
             }
@@ -253,9 +253,18 @@
             return implode('', iterator_to_array(call_user_func(function(){
                 if(! empty($this->getAttributes())) foreach($this->getAttributes() as $name => $value){
                     $attributeTemplate  = ($value === null ? ' %s' : ' %s="%s"');
-                    yield sprintf($attributeTemplate, preg_replace('/[^0-9a-z_-]+/ui', '', $name), htmlspecialchars($value));
+                    yield sprintf($attributeTemplate, $this->sanitize($name), htmlspecialchars($value));
                 }
             })));
+        }
+
+        /**
+         * @param string $string
+         * @return string
+         */
+        public function sanitize($string)
+        {
+            return trim(preg_replace('/[^0-9a-z_-]+/ui', '', $string));
         }
 
         /**
