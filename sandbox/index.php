@@ -20,12 +20,27 @@
     use Dez\Html\Element\SelectElement;
     use Dez\Html\Element\InputSubmitElement;
     use Dez\Html\Element\SpanElement;
+    use Dez\Html\Element\TableElement;
     use Dez\Html\Element\UlElement;
     use Dez\Html\Tag;
 
     include_once "../vendor/autoload.php";
 
     error_reporting(1); ini_set('display_errors', 1);
+
+    $table = new TableElement();
+
+    for($i = 0; $i < 15; $i++) {
+        $row    = $table->row(new ItalicElement(new BoldElement("Row #$i")));
+        for($j = 0; $j < 15; $j++) {
+            $cell = $row->cell("Col #$j");
+            $cell->addClass('td td-'.$j);
+        }
+    }
+
+//    die(var_dump($table));
+
+    echo $table;
 
     $text       = new H1Element(new ItalicElement('Hello world', [
         'data-inner-html' => new BoldElement('test', ['id' => 'click-me'])
