@@ -3,8 +3,14 @@
     namespace Dez\Html;
 
     use Dez\Html\Element\AElement;
+    use Dez\Html\Element\BoldElement;
     use Dez\Html\Element\ImgElement;
     use Dez\Html\Element\SelectElement;
+    use Dez\Html\Element\TableBodyElement;
+    use Dez\Html\Element\TableElement;
+    use Dez\Html\Element\TableHeadCellElement;
+    use Dez\Html\Element\TableHeadElement;
+    use Dez\Html\Element\TableRowElement;
 
     class Tag {
 
@@ -55,6 +61,42 @@
         public static function select($name, array $data = [], $selectedValue = null, array $attributes = [])
         {
             new SelectElement($name, $data, $selectedValue, $attributes);
+        }
+
+        /**
+         * @param array $header
+         * @param array $rows
+         * @return TableElement
+         */
+        public static function table(array $header = [], array $rows = [])
+        {
+
+            $table      = new TableElement();
+            $thead      = new TableHeadElement();
+            $headRow    = new TableRowElement();
+            $tbody      = new TableBodyElement();
+
+            $thead->appendContent($headRow);
+
+            foreach($header as $headerCell) {
+                $headRow->appendContent(new TableHeadCellElement(new BoldElement($headerCell)));
+            }
+
+            $table->appendContent($thead);
+
+            foreach($rows as $items) {
+
+                $tableRow   = new TableRowElement();
+                $tbody->appendContent($tableRow);
+
+                foreach($items as $item) {
+                    $tableRow->cell($item);
+                }
+            }
+
+            $table->appendContent($tbody);
+
+            return $table;
         }
 
     }

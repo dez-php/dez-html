@@ -30,6 +30,18 @@
 
     error_reporting(1); ini_set('display_errors', 1);
 
+    $rows   = [];
+
+    foreach(['Ivan', 'Lol', 'Jake', 'Finn', 'Stewie'] as $item) {
+        $rows[] = [
+            $item, rand(18, 30), ['Y', 'N'][rand(0,1)],
+            new AElement('/delete?name='. $item, 'Kill '. $item),
+        ];
+    }
+
+    echo Tag::table([
+        'Name', 'Age', 'Fucker', 'Actions'
+    ], $rows);
 
     $table = new TableElement();
 
