@@ -78,23 +78,27 @@
 
             $thead->appendContent($headRow);
 
-            foreach($header as $headerCell) {
-                $headRow->appendContent(new TableHeadCellElement(new BoldElement($headerCell)));
-            }
-
-            $table->appendContent($thead);
-
-            foreach($rows as $items) {
-
-                $tableRow   = new TableRowElement();
-                $tbody->appendContent($tableRow);
-
-                foreach($items as $item) {
-                    $tableRow->cell($item);
+            if(count($header) > 0) {
+                foreach($header as $headerCell) {
+                    $headRow->appendContent(new TableHeadCellElement(new BoldElement($headerCell)));
                 }
+
+                $table->appendContent($thead);
             }
 
-            $table->appendContent($tbody);
+            if(count($rows) > 0) {
+                foreach($rows as $items) {
+
+                    $tableRow   = new TableRowElement();
+                    $tbody->appendContent($tableRow);
+
+                    foreach($items as $item) {
+                        $tableRow->cell($item);
+                    }
+                }
+
+                $table->appendContent($tbody);
+            }
 
             return $table;
         }
