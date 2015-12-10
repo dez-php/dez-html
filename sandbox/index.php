@@ -11,6 +11,8 @@
     use Dez\Html\Element\InputButtonElement;
     use Dez\Html\Element\InputCheckboxElement;
     use Dez\Html\Element\InputPasswordElement;
+    use Dez\Html\Element\InputRadioElement;
+    use Dez\Html\Element\InputRangeElement;
     use Dez\Html\Element\InputTextElement;
     use Dez\Html\Element\ItalicElement;
     use Dez\Html\Element\LiElement;
@@ -20,12 +22,31 @@
     use Dez\Html\Element\SelectElement;
     use Dez\Html\Element\InputSubmitElement;
     use Dez\Html\Element\SpanElement;
+    use Dez\Html\Element\TableElement;
     use Dez\Html\Element\UlElement;
     use Dez\Html\Tag;
 
     include_once "../vendor/autoload.php";
 
     error_reporting(1); ini_set('display_errors', 1);
+
+    $imageFile  = __DIR__ . '/stewie.jpg';
+
+    $imageHandler   = imagecreatefromjpeg($imageFile);
+    list($width, $height) = getimagesize($imageFile);
+
+    $table  = new TableElement();
+
+    $table->setAttribute('cellspacing', 0)->setAttribute('cellpadding', 0);
+
+    for($x = 0; $x < $height;  $x++) {
+        $row    = $table->row();
+        for($y = 0; $y < $width; $y++) {
+            $row->cell()
+                ->setAttribute('style', 'background-color: #' . dechex(imagecolorat($imageHandler, $y, $x)))
+                ->setAttributes(['height' => 1, 'width' => 1]);
+        }
+    }
 
     $text       = new H1Element(new ItalicElement('Hello world', [
         'data-inner-html' => new BoldElement('test', ['id' => 'click-me'])
@@ -51,6 +72,10 @@
     $form->addClass('form-component')->id(md5(time()))->prependContent( $div->removeClass('ok') )->prependContent( $text );
 
     echo $form;
+
+    $tableForm  = new TableElement();
+
+    $tableForm->row('Test Form!!!')->cell($form);
 
     echo '<hr>';
 
@@ -121,3 +146,7 @@
     }
 
     echo $ul;
+
+    echo $table, $tableForm;
+
+    echo new InputRangeElement('age', 0, 70, 1, 25);
