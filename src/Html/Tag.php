@@ -70,15 +70,14 @@
          */
         public static function table(array $header = [], array $rows = [])
         {
-
             $table      = new TableElement();
-            $thead      = new TableHeadElement();
-            $headRow    = new TableRowElement();
-            $tbody      = new TableBodyElement();
-
-            $thead->appendContent($headRow);
 
             if(count($header) > 0) {
+                $thead      = new TableHeadElement();
+                $headRow    = new TableRowElement();
+
+                $thead->appendContent($headRow);
+
                 foreach($header as $headerCell) {
                     $headRow->appendContent(new TableHeadCellElement(new BoldElement($headerCell)));
                 }
@@ -87,6 +86,8 @@
             }
 
             if(count($rows) > 0) {
+                $tbody      = new TableBodyElement();
+
                 foreach($rows as $items) {
 
                     $tableRow   = new TableRowElement();
