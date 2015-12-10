@@ -30,23 +30,20 @@
 
     error_reporting(1); ini_set('display_errors', 1);
 
-    $imageFile  = __DIR__ . '/stewie.jpg';
 
-    $imageHandler   = imagecreatefromjpeg($imageFile);
-    list($width, $height) = getimagesize($imageFile);
+    $table = new TableElement();
 
-    $table  = new TableElement();
-
-    $table->setAttribute('cellspacing', 0)->setAttribute('cellpadding', 0);
-
-    for($x = 0; $x < $height;  $x++) {
-        $row    = $table->row();
-        for($y = 0; $y < $width; $y++) {
-            $row->cell()
-                ->setAttribute('style', 'background-color: #' . dechex(imagecolorat($imageHandler, $y, $x)))
-                ->setAttributes(['height' => 1, 'width' => 1]);
+    for($i = 0; $i < 15; $i++) {
+        $row    = $table->row(new ItalicElement(new BoldElement("Row #$i")));
+        for($j = 0; $j < 15; $j++) {
+            $cell = $row->cell("Col #$j");
+            $cell->addClass('td td-'.$j);
         }
     }
+
+//    die(var_dump($table));
+
+    echo $table;
 
     $text       = new H1Element(new ItalicElement('Hello world', [
         'data-inner-html' => new BoldElement('test', ['id' => 'click-me'])

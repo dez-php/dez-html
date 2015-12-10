@@ -4,8 +4,7 @@
 
     use Dez\Html\HtmlElement;
 
-    class TableRowElement extends HtmlElement
-    {
+    class TableRowElement extends HtmlElement {
 
         /**
          * TableRowElement constructor.

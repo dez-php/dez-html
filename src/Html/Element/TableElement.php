@@ -4,8 +4,7 @@
 
     use Dez\Html\HtmlElement;
 
-    class TableElement extends HtmlElement
-    {
+    class TableElement extends HtmlElement {
 
         /**
          * TableElement constructor.
@@ -19,13 +18,18 @@
         }
 
         /**
-         * @param mixed $rowTitle
+
+         * @param null $title
          * @return TableRowElement
          */
-        public function row($rowTitle = null)
+        public function row($title = null)
         {
-            $tableRow   = new TableRowElement(new TableCellElement($rowTitle));
+            $tableRow    = new TableRowElement();
             $this->appendContent($tableRow);
+
+            if(! empty($title)) {
+                $tableRow->cell($title);
+            }
 
             return $tableRow;
         }

@@ -13,15 +13,15 @@
          * @param null $value
          * @param array $attributes
          */
-        public function __construct($name, $min = 0, $max = 10, $step = 1, $value = null, array $attributes = [])
+        public function __construct($name, $min = 0, $max = 0, $step = 1, $value = null, array $attributes = [])
         {
             parent::__construct($name, $value, $attributes);
-            $this
-                ->setAttribute('type', 'range')
-                ->setAttribute('min', (int) $min)
-                ->setAttribute('max', (int) $max)
-                ->setAttribute('step', (int) $step)
-            ;
+            $this->setAttributes([
+                'type'  => 'range',
+                'min'   => (int) $min,
+                'max'   => (int) $max,
+                'step'  => (int) $step,
+            ]);
         }
 
     }
