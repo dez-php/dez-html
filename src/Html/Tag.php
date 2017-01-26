@@ -6,6 +6,11 @@ use Dez\Html\Element\AElement;
 use Dez\Html\Element\ImgElement;
 use Dez\Html\Element\SelectElement;
 
+/**
+ * Class Tag
+ *
+ * @package Dez\Html
+ */
 class Tag
 {
 

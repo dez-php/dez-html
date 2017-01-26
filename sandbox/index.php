@@ -11,6 +11,8 @@
     use Dez\Html\Element\InputButtonElement;
     use Dez\Html\Element\InputCheckboxElement;
     use Dez\Html\Element\InputPasswordElement;
+    use Dez\Html\Element\InputRadioElement;
+    use Dez\Html\Element\InputRangeElement;
     use Dez\Html\Element\InputTextElement;
     use Dez\Html\Element\ItalicElement;
     use Dez\Html\Element\LiElement;
@@ -27,6 +29,19 @@
     include_once "../vendor/autoload.php";
 
     error_reporting(1); ini_set('display_errors', 1);
+
+    $rows   = [];
+
+    foreach(['Ivan', 'Lol', 'Jake', 'Finn', 'Stewie'] as $item) {
+        $rows[] = [
+            $item, rand(18, 30), ['Y', 'N'][rand(0,1)],
+            new AElement('/delete?name='. $item, 'Kill '. $item),
+        ];
+    }
+
+    echo Tag::table([
+        'Name', 'Age', 'Fucker', 'Actions'
+    ], $rows);
 
     $table = new TableElement();
 
@@ -66,6 +81,10 @@
     $form->addClass('form-component')->id(md5(time()))->prependContent( $div->removeClass('ok') )->prependContent( $text );
 
     echo $form;
+
+    $tableForm  = new TableElement();
+
+    $tableForm->row('Test Form!!!')->cell($form);
 
     echo '<hr>';
 
@@ -136,3 +155,7 @@
     }
 
     echo $ul;
+
+    echo $table, $tableForm;
+
+    echo new InputRangeElement('age', 0, 70, 1, 25);
