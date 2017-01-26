@@ -21,6 +21,7 @@ class TableCellElement extends HtmlElement
   public function __construct($content = null, array $attributes = [])
   {
     parent::__construct('td', $attributes, null);
+
     $this->setContent($content);
   }
 

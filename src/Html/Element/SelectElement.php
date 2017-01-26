@@ -4,6 +4,11 @@ namespace Dez\Html\Element;
 
 use Dez\Html\HtmlElement;
 
+/**
+ * Class SelectElement
+ *
+ * @package Dez\Html\Element
+ */
 class SelectElement extends HtmlElement
 {
 
@@ -26,8 +31,8 @@ class SelectElement extends HtmlElement
     foreach ($data as $title => $item) {
 
       if (is_array($item)) {
-        $group = new OptgroupElement();
 
+        $group = new OptgroupElement();
         foreach ($item as $optionTitle => $optionValue) {
           $option = new OptionElement($optionTitle);
           $group->setAttribute('label', $title)->appendContent($option->setAttribute('value', $optionValue));
@@ -72,6 +77,24 @@ class SelectElement extends HtmlElement
     }
 
     return $this;
+  }
+
+  /**
+   * @return string
+   */
+  public function getInputName()
+  {
+    return $this->getAttribute('name');
+  }
+
+  /**
+   * @param $name
+   */
+  public function setInputName($name)
+  {
+    $this->setAttribute('name', $name);
+
+    return;
   }
 
 }

@@ -119,7 +119,7 @@ abstract class HtmlElement
   /**
    * @param      $name
    * @param null $default
-   * @return null
+   * @return string
    */
   public function getAttribute($name, $default = null)
   {
