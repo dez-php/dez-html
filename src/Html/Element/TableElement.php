@@ -1,36 +1,38 @@
 <?php
 
-    namespace Dez\Html\Element;
+namespace Dez\Html\Element;
 
-    use Dez\Html\HtmlElement;
+use Dez\Html\HtmlElement;
 
-    class TableElement extends HtmlElement {
+class TableElement extends HtmlElement
+{
 
-        /**
-         * TableElement constructor.
-         * @param null $content
-         * @param array $attributes
-         */
-        public function __construct($content = null, array $attributes = [])
-        {
-            parent::__construct('table', $attributes, null);
-            $this->setContent($content);
-        }
+  /**
+   * TableElement constructor.
+   *
+   * @param null  $content
+   * @param array $attributes
+   */
+  public function __construct($content = null, array $attributes = [])
+  {
+    parent::__construct('table', $attributes, null);
+    $this->setContent($content);
+  }
 
-        /**
-         * @param null $title
-         * @return TableRowElement
-         */
-        public function row($title = null)
-        {
-            $tableRow    = new TableRowElement();
-            $this->appendContent($tableRow);
+  /**
+   * @param null $title
+   * @return TableRowElement
+   */
+  public function row($title = null)
+  {
+    $tableRow = new TableRowElement();
+    $this->appendContent($tableRow);
 
-            if(! empty($title)) {
-                $tableRow->cell($title);
-            }
-
-            return $tableRow;
-        }
-
+    if (!empty($title)) {
+      $tableRow->cell($title);
     }
+
+    return $tableRow;
+  }
+
+}

@@ -1,32 +1,34 @@
 <?php
 
-    namespace Dez\Html\Element;
+namespace Dez\Html\Element;
 
-    use Dez\Html\HtmlElement;
+use Dez\Html\HtmlElement;
 
-    class FormElement extends HtmlElement {
+class FormElement extends HtmlElement
+{
 
-        /**
-         * FormElement constructor.
-         * @param string $action
-         * @param string $method
-         * @param bool|false $multipart
-         * @param $content
-         * @param array $attributes
-         */
-        public function __construct($action = '/', $method = 'get', $multipart = false, $content = null, array $attributes = [])
-        {
-            parent::__construct('form', $attributes, null);
+  /**
+   * FormElement constructor.
+   *
+   * @param string     $action
+   * @param string     $method
+   * @param bool|false $multipart
+   * @param            $content
+   * @param array      $attributes
+   */
+  public function __construct($action = '/', $method = 'get', $multipart = false, $content = null, array $attributes = [])
+  {
+    parent::__construct('form', $attributes, null);
 
-            $this
-                ->setAttribute('action', $action)
-                ->setAttribute('method', strtoupper($method));
+    $this
+      ->setAttribute('action', $action)
+      ->setAttribute('method', strtoupper($method));
 
-            if($multipart === true) {
-                $this->setAttribute('enctype', 'multipart/form-data');
-            }
-
-            $this->setContent($content);
-        }
-
+    if ($multipart === true) {
+      $this->setAttribute('enctype', 'multipart/form-data');
     }
+
+    $this->setContent($content);
+  }
+
+}
