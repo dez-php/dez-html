@@ -4,6 +4,10 @@ namespace Dez\Html\Element;
 
 use Dez\Html\HtmlElement;
 
+/**
+ * Class ScriptElement
+ * @package Dez\Html\Element
+ */
 class ScriptElement extends HtmlElement
 {
 
@@ -16,6 +20,7 @@ class ScriptElement extends HtmlElement
   public function __construct($src = null, array $attributes = [])
   {
     parent::__construct('script', $attributes);
+    
     $this->setAttribute('src', $src);
   }
 

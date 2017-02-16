@@ -28,7 +28,7 @@ abstract class HtmlElement
   /**
    * @var string
    */
-  protected $name;
+  protected $nodeName;
 
   /**
    * HtmlElement constructor.
@@ -39,7 +39,7 @@ abstract class HtmlElement
    */
   public function __construct($name, array $attributes = [], $content = null)
   {
-    $this->setName($name)->setAttributes($attributes)->setContent($content);
+    $this->setNodeName($name)->setAttributes($attributes)->setContent($content);
   }
 
   /**
@@ -229,24 +229,24 @@ abstract class HtmlElement
    */
   public function openTag()
   {
-    return "<{$this->getName()}{$this->renderAttributes()}>";
+    return "<{$this->getNodeName()}{$this->renderAttributes()}>";
   }
 
   /**
    * @return mixed
    */
-  public function getName()
+  public function getNodeName()
   {
-    return $this->name;
+    return $this->nodeName;
   }
 
   /**
-   * @param mixed $name
+   * @param mixed $nodeName
    * @return static
    */
-  public function setName($name)
+  public function setNodeName($nodeName)
   {
-    $this->name = $this->sanitize($name);
+    $this->nodeName = $this->sanitize($nodeName);
 
     return $this;
   }
@@ -323,7 +323,7 @@ abstract class HtmlElement
    */
   public function closeTag()
   {
-    return "</{$this->getName()}>";
+    return "</{$this->getNodeName()}>";
   }
 
 }

@@ -2,6 +2,10 @@
 
 namespace Dez\Html\Element;
 
+/**
+ * Class InputSubmitElement
+ * @package Dez\Html\Element
+ */
 class InputSubmitElement extends InputElement
 {
 
@@ -15,6 +19,7 @@ class InputSubmitElement extends InputElement
   public function __construct($value, $name = null, array $attributes = [])
   {
     parent::__construct($name, $value, $attributes);
+    
     $this->setAttribute('type', 'submit');
   }
 

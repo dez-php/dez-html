@@ -29,19 +29,39 @@ abstract class InputElement extends HtmlElement
   /**
    * @return string
    */
-  public function getInputName()
+  public function getName()
   {
     return $this->getAttribute('name');
   }
-
+  
   /**
    * @param $name
+   * @return $this
    */
-  public function setInputName($name)
+  public function setName($name)
   {
     $this->setAttribute('name', $name);
 
-    return;
+    return $this;
+  }
+  
+  /**
+   * @return string
+   */
+  public function getValue()
+  {
+    return $this->getAttribute('value');
+  }
+  
+  /**
+   * @param $value
+   * @return $this
+   */
+  public function setValue($value = null)
+  {
+    $this->setAttribute('value', $value);
+    
+    return $this;
   }
 
 }

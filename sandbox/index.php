@@ -39,9 +39,9 @@
         ];
     }
 
-    echo Tag::table([
-        'Name', 'Age', 'Fucker', 'Actions'
-    ], $rows);
+//    echo Tag::table([
+//        'Name', 'Age', 'Fucker', 'Actions'
+//    ], $rows);
 
     $table = new TableElement();
 
@@ -95,15 +95,15 @@
     echo Tag::img('http://fox-fan.ru/news/269_1.jpg', 250, -1, 'rounded');
 
     $select = new SelectElement('geo_list', [
-        'Ukraine' => 'ua',
+        1 => 'Ukraine',
         'Ukraine Regions' => [
-            'Kiev' => 'ua-kyiv',
-            '4e'    => 'ua-4e'
+            5 => 'Kiev',
+            3    => 'Cherkassy'
         ],
-        'Japan' => 'jp',
+        2 => 'Japan',
     ], rand(0, 9));
 
-    echo $select;
+    echo new DivElement($select, ['style' => 'border: 1px solid red;']);
 
     $optgroup = new OptgroupElement();
 
@@ -115,8 +115,14 @@
 
     $select->prependContent($optgroup);
 
+    $select->setName('countries');
+
     echo $select, (new ScriptElement('js/jquery.js'))->async(true);
 
+    $select->addValues(range(1, 10));
+
+    echo  $select;
+    
     echo (new InputCheckboxElement('test', 'asd'));
 
     echo (new InputButtonElement('click me!!1'));
