@@ -5,22 +5,22 @@ namespace Dez\Html\Element;
 use Dez\Html\HtmlElement;
 
 /**
- * Class LiElement
+ * Class StyleElement
  * @package Dez\Html\Element
  */
-class LiElement extends HtmlElement
+class StyleElement extends HtmlElement
 {
-
+  
   /**
-   * LiElement constructor.
-   *
-   * @param null  $content
+   * StyleElement constructor.
+   * @param null $content
    * @param array $attributes
    */
   public function __construct($content = null, array $attributes = [])
   {
-    parent::__construct('li', $attributes, null);
+    parent::__construct('style', $attributes, null);
+    
     $this->setSingle(false)->setContent($content);
   }
-
+  
 }

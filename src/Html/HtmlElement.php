@@ -7,7 +7,7 @@ namespace Dez\Html;
  *
  * @package Dez\Html
  */
-abstract class HtmlElement
+class HtmlElement
 {
 
   /**
